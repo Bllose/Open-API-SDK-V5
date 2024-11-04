@@ -30,7 +30,7 @@ if __name__ == '__main__':
     # account api
     accountAPI = Account.AccountAPI(api_key, secret_key, passphrase, False, flag)
     # 获取交易产品基础信息
-    result = accountAPI.get_account_instruments(instType = 'SWAP', uly = '', instFamily = '', instId = '')
+    # result = accountAPI.get_account_instruments(instType = 'SWAP', uly = '', instFamily = '', instId = '')
     # 查看账户持仓风险 GET Position_risk
     # result = accountAPI.get_position_risk('SWAP')
     # 查看账户余额  Get Balance
@@ -210,7 +210,7 @@ if __name__ == '__main__':
     # result = marketAPI.books_full()
 
     # 获取所有交易产品K线数据  Get Candlesticks
-    # result = marketAPI.get_candlesticks('BTC-USDT-210924', bar='1m')
+    result = marketAPI.get_candlesticks('BTC-USDT-210924', bar='1m')
     # 获取交易产品历史K线数据（仅主流币实盘数据）  Get Candlesticks History（top currencies in real-trading only）
     # result = marketAPI.get_history_candlesticks('BTC-USDT')
     # 获取指数K线数据  Get Index Candlesticks

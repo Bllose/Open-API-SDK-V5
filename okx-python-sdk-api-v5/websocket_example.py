@@ -179,6 +179,7 @@ async def subscribe_without_login(url, channels):
     while True:
         try:
             async with websockets.connect(url) as ws:
+                print(f'connect -> {url}')
                 sub_param = {"op": "subscribe", "args": channels}
                 sub_str = json.dumps(sub_param)
                 await ws.send(sub_str)
@@ -389,7 +390,7 @@ passphrase = ""
 # 实盘 real trading
 # url = "wss://ws.okx.com:8443/ws/v5/public"
 # 模拟盘 demo trading
-url = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999"
+# url = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999"
 
 # WebSocket私有频道 private channels
 # 实盘 real trading
@@ -417,7 +418,8 @@ url = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999"
 # 持仓总量频道 Open interest Channel
 # channels = [{"channel": "open-interest", "instId": "BTC-USD-210326"}]
 # K线频道 Candlesticks Channel
-# channels = [{"channel": "candle1m", "instId": "BTC-USD-210326"}]
+# channels = [{"channel": "sprd-candle3M", "sprdId": "BTC-USDT_BTC-USDT-SWAP"}]
+# channels = [{"channel": "mark-price-candle1D", "sprdId": "BTC-USD-190628"}]
 # 交易频道 Trades Channel
 # channels = [{"channel": "trades", "instId": "BTC-USD-201225"}]
 # 预估交割/行权价格频道 Estimated delivery/exercise Price Channel
@@ -458,7 +460,7 @@ url = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999"
 
 #价差撮合
 # 深度频道 sprd-bbo-tbt/sprd-books5
-channels = [{"channel": "sprd-bbo-tbt","sprdId":""}]
+# channels = [{"channel": "sprd-bbo-tbt","sprdId":""}]
 # 公共成交数据频道 sprd-public-trades （每次推送一条成交数据）
 # channels = [{"channel": "sprd-public-trades","sprdId":""}]
 # 行情频道 tickers
@@ -514,15 +516,15 @@ channels = [{"channel": "sprd-bbo-tbt","sprdId":""}]
 # 定投策略委托订单频道
 # channels = [{"channel": "algo-recurring-buy", "instType":"SPOT"}]
 # 跟单消息通知频道
-channels = [{"channel": "copytrading-notification", "instType":"SWAP","instId":"BTC-USDT-SWAP"}]
+# channels = [{"channel": "copytrading-notification", "instType":"SWAP","instId":"BTC-USDT-SWAP"}]
 # 带单消息通知频道
-channels = [{"channel": "copytrading-lead-notification", "instType":"SWAP","instId":"BTC-USDT-SWAP"}]
+# channels = [{"channel": "copytrading-lead-notification", "instType":"SWAP","instId":"BTC-USDT-SWAP"}]
 
 #价差撮合
 # 订单频道 sprd-orders
-channels = [{"channel": "sprd-orders", "sprdId":""}]
+# channels = [{"channel": "sprd-orders", "sprdId":""}]
 # 成交数据頻道 sprd-trades
-channels = [{"channel": "sprd-trades", "sprdId":""}]
+# channels = [{"channel": "sprd-trades", "sprdId":""}]
 
 
 
@@ -570,10 +572,28 @@ channels = [{"channel": "sprd-trades", "sprdId":""}]
 
 
 
-loop = asyncio.get_event_loop()
+# loop = asyncio.get_event_loop()
 
 # 公共频道 不需要登录（行情，持仓总量，K线，标记价格，深度，资金费率等）subscribe public channel
-loop.run_until_complete(subscribe_without_login(url, channels))
+# loop.run_until_complete(subscribe_without_login(url, channels))
+
+# url = "wss://ws.okx.com:8443/ws/v5/business"
+# channels = [{"channel":"index-candle1m","instId":"BTC-USD"}]
+# asyncio.run(subscribe_without_login(url, channels))
+
+# url = "wss://ws.okx.com:8443/ws/v5/public"
+# channels = [{"channel": "tickers", "instId": "BTC-USDT"}, {"channel": "tickers", "instId": "ETH-USDT"}]
+# asyncio.run(subscribe_without_login(url, channels))
+
+# async def main():
+#     url = "wss://ws.okx.com:8443/ws/v5/business"
+#     channels = [{"channel":"index-candle1m","instId":"BTC-USD"}]
+
+#     url_1 = "wss://ws.okx.com:8443/ws/v5/public"
+#     channels_1 = [{"channel": "tickers", "instId": "BTC-USDT"}, {"channel": "tickers", "instId": "ETH-USDT"}]
+#     await asyncio.gather(subscribe_without_login(url, channels), subscribe_without_login(url_1, channels_1))
+
+# asyncio.run(main())
 
 # 私有频道 需要登录（账户，持仓，订单等）subscribe private channel
 # loop.run_until_complete(subscribe(url, api_key, passphrase, secret_key, channels))
@@ -581,4 +601,6 @@ loop.run_until_complete(subscribe_without_login(url, channels))
 # 交易（下单，撤单，改单等）trade
 # loop.run_until_complete(trade(url, api_key, passphrase, secret_key, trade_param))
 
-loop.close()
+# loop.close()
+
+
