@@ -1,9 +1,10 @@
 from bllose.config.Config import class_config
+from bllose.config.Config import bConfig
 import asyncio
 from websocket_example import subscribe_without_login
 
-@class_config
 class blloseOKE():
+    @bConfig()
     def __init__(self, config):
         self.api_key = config['okx.Bllose.apiKey']
         self.secret_key = config['okx.Bllose.secretKey']
@@ -33,3 +34,6 @@ async def main():
 
 if __name__ == '__main__':
     asyncio.run(main())
+
+    bllose = blloseOKE()
+    

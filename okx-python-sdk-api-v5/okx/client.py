@@ -1,5 +1,6 @@
 import requests
 import json
+import logging
 from . import consts as c, utils, exceptions
 
 
@@ -34,9 +35,9 @@ class Client(object):
         # send request
         response = None
 
-        print("url:", url)
-        # print("headers:", header)
-        print("body:", body)
+        logging.debug("url:", url)
+        logging.debug("headers:", header)
+        logging.debug("body:", body)
 
         if method == c.GET:
             response = requests.get(url, headers=header)
